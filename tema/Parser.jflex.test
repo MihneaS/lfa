@@ -1,0 +1,31 @@
+%%
+%class Parser
+%standalone
+%line
+
+integer = [1-9][0-9]* | 0 
+str = [a-z][a-z]*
+var = str 
+Aval = integer
+BVal = True | False
+AExpr = var | Aval | AExpr"+"AExpr | AExpr"/"AExpr | "("AExpr")"
+BExpr = BVal | BExpr"&&"BExpr | AExpr">"AExpr | "!"BExpr | "("BExpr")"
+initialization = "int"
+cmdEnd = ";" 
+
+%%
+
+{str} {
+    System.out.printf("***found str match [%s]\n", yytext());
+}
+
+{AExpr}   {
+    System.out.printf("***found aexpr match [%s]\n", yytext());
+}
+
+{integer} {
+    System.out.printf("***found int match [%s]\n", yytext());
+}
+
+\n  {}
+. {}
